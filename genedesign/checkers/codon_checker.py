@@ -24,6 +24,7 @@ class CodonChecker:
     codon_frequencies: dict[str, float]
     rare_codons: list[str]
     rare_codon_threshold: float
+    aa_map: dict[str, list[tuple[str, float]]]
 
     def initiate(self) -> None:
         """
@@ -33,6 +34,7 @@ class CodonChecker:
         self.codon_frequencies = {}
         self.rare_codons = []
         self.rare_codon_threshold = 0.1  # Threshold for rare codon frequency
+        self.aa_map = {}
 
         with open(codon_usage_file, 'r') as f:
             reader = csv.reader(f, delimiter='\t')
@@ -47,6 +49,13 @@ class CodonChecker:
                 if usage_freq < self.rare_codon_threshold:
                     self.rare_codons.append(codon)
 
+                # Create map of AA => [(codon, freq), (codon, freq) ...]
+                aa = row[1].strip()
+                if aa in self.aa_map:
+                    self.aa_map[aa].append((codon, usage_freq))
+                else:
+                    self.aa_map[aa] = [(codon, usage_freq)]
+
     def run(self, cds: list[str]) -> tuple[bool, float, int, float]:
         """
         Calculates codon diversity, rare codon count, and Codon Adaptation Index (CAI) for the provided CDS.
@@ -60,8 +69,7 @@ class CodonChecker:
 
         # Calculate codon diversity
         codon_counts = Counter(cds)
-        total_codons = len(cds)
-        codon_diversity = len(codon_counts) / total_codons if total_codons > 0 else 0.0
+        codon_diversity = len(codon_counts) / 62
 
         # Count rare codons
         rare_codon_count = sum(codon_counts[codon] for codon in self.rare_codons if codon in cds)

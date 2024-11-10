@@ -1,0 +1,14 @@
+Total genes processed: 2458
+Parsing runtime: 0.09 seconds
+Execution runtime: 34.35 seconds
+Total exceptions: 0
+No exceptions encountered.
+
+Total validation failures: 6956
+
+Validation Failures by Checker:
+- Forbidden Sequence Checker: 1924 occurrences
+- Hairpin Checker: 2326 occurrences
+- Codon Usage Checker: 2322 occurrences
+- Promoter Checker: 254 occurrences
+- Translation/Completeness Checker: 130 occurrences

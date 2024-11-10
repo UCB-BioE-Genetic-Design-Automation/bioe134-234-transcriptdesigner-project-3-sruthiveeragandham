@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/root/TranscriptDesigner')
+
 import os
 import traceback
 import csv
@@ -51,8 +54,11 @@ def benchmark_proteome(fasta_file):
     proteome = parse_fasta(fasta_file)
     successful_results = []
     error_results = []
+    protein_count = 0
 
     for gene, protein in proteome.items():
+        if protein_count > 99:
+            break
         try:
             print(f"Processing gene: {gene} with protein sequence: {protein[:30]}...")
             ignores = set()
@@ -68,6 +74,7 @@ def benchmark_proteome(fasta_file):
                 'protein': protein,
                 'error': f"Error: {str(e)}\nTraceback: {traceback.format_exc()}"
             })
+        protein_count += 1
     
     return successful_results, error_results
 
