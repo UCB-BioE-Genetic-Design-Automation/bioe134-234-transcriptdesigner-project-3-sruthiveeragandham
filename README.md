@@ -1,4 +1,4 @@
-Note: see `initial_summary_100.txt` for results of running original code on 100 genes, and `final_summary_report_100.txt` for results of running new code on 100 genes. I was able to reduce validation failures further by running more random sequences in the first stage of `run()` in `transcript_designer.py`, but the solution was prohibitively slow. I chose my final parameters in an attempt to balance speed and production of an optimized sequence, though my final solution remains quite inefficient. 
+Note: see `initial_summary_100.txt` for results of running original code on 100 genes, and `final_summary_100.txt` for results of running new code on 100 genes. I was able to reduce validation failures further by running more random sequences in the first stage of `run()` in `transcript_designer.py`, but the solution was prohibitively slow. I chose my final parameters in an attempt to balance speed and production of an optimized sequence, though my final solution remains quite inefficient. 
 
 # UCB_BioE134_GeneDesign
 
